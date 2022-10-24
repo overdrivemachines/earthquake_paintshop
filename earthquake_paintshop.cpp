@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -28,6 +29,31 @@ int main(int argc, char const *argv[]) {
 }
 
 
+// Sort the strings and find the number of times they appear
+// Using map makes sorting easier as they are automatically sorted in c++
 vector<alphanumeric> sortedStrings(int N, vector<string> A) {
+  vector<alphanumeric> result;
+  map<string, int> items;
 
+  for (int i = 0; i < N; i++) {
+    // cout << A[i] << "\n";
+    if(items.count(A[i])) {
+      // string already exists in map
+      items[A[i]]++;
+    } else {
+      // make new entry in map
+      items.insert({A[i], 1});
+    }
+  }
+
+  // put the map in the vector if alphanumeric
+  map<string, int>::iterator itr;
+  for (itr = items.begin(); itr != items.end(); ++itr) {
+    alphanumeric item;
+    item.name = itr->first;
+    item.count = itr->second;
+    result.push_back(item);
+  }
+
+  return result;
 }
